@@ -2,6 +2,9 @@ from flask import Flask
 
 app = Flask(__name__)
 
+# error handling
+app.config["DEBUG"] = True
+
 @app.route("/")
 @app.route("/hello")
 
@@ -23,6 +26,13 @@ def float_type(value):
 def path_type(value):
     print(value)
     return "correct"
+@app.route("/name/<name>")
+def index(name):
+    if name.lower() == "long":
+        return "Hello, {}".format(name), 200
+    else:
+        return "Not found", 404
+    
 # define the view using a function, which return a string
 def hello_world():
     return "Hello, World!"
